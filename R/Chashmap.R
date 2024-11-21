@@ -103,8 +103,8 @@ values <- function(map, simplify = FALSE) {
 #' @export
 clear <- function(map) {
   stopifnot(inherits(map, "C_hashmap"))
-
   .Call("C_hashmap_clear", map)
+  invisible()
 }
 
 #' Return the number of elements stored in the hashmap
