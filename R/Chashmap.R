@@ -41,7 +41,7 @@ get <- function(map, keys) {
 
 #' @export
 `[.C_hashmap` <- function(map, val) {
-  get(map, keys)
+  get(map, val)
 }
 
 
