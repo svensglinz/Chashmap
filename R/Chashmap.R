@@ -20,6 +20,7 @@ insert <- function(map, keys, values) {
   stopifnot (is.character(values) || is.numeric(values))
   stopifnot (length(keys) == length(values))
   .Call("C_hashmap_insert", map, keys, values)
+  invisible()
 }
 
 
