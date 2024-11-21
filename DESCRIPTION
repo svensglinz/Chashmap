@@ -1,8 +1,6 @@
 Package: Chashmap
 Title: A simple vectorized hashmap
 Version: 0.0.0.9000
-Authors@R: 
-    person("Sven", "Glinz")
 Description: A hashmap wrapper around the c++ std::unordered_map for vectors of type numeric or string
 License: `use_mit_license()
     license
