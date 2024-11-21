@@ -16,10 +16,10 @@
 #' @export
 insert <- function(map, keys, values) {
   stopifnot(inherits(map, "C_hashmap"))
-  stopifnot(is.character(key) || is.numeric(key))
-  stopifnot (is.character(value) || is.numeric(value))
-  stopifnot (length(key) == length(value))
-  .Call("C_hashmap_insert", map, key, value)
+  stopifnot(is.character(keys) || is.numeric(keys))
+  stopifnot (is.character(values) || is.numeric(values))
+  stopifnot (length(keys) == length(values))
+  .Call("C_hashmap_insert", map, keys, values)
 }
 
 
@@ -30,7 +30,7 @@ insert <- function(map, keys, values) {
 #' @export
 get <- function(map, keys) {
   stopifnot(inherits(map, "C_hashmap"))
-  stopifnot(is.character(key) || is.numeric(key))
+  stopifnot(is.character(keys) || is.numeric(keys))
   vals <- .Call("C_hashmap_get", map, keys)
 
   if (length(vals) <= 1) {
