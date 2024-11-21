@@ -1,1 +1,4 @@
 .Rproj.user
+src/*.so
+src/*.o
+.vscode

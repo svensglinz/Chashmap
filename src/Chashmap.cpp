@@ -2,6 +2,7 @@
 #include <R.h>
 #include <Rinternals.h>
 #include <string.h>
+#include <stdint.h> 
 
 #ifndef R_NO_REMAP
 #define R_NO_REMAP
@@ -78,7 +79,7 @@ node* get_vals(SEXP vec) {
 
 // https://gist.github.com/sgsfak/9ba382a0049f6ee885f68621ae86079b
 std::size_t str_hash(const char* str) {
-    unsigned cur *s = (unsigned char*)str; 
+    unsigned char *cur = (unsigned char*)str; 
     const uint32_t FNV_32_PRIME = 0x01000193; 
 
     uint32_t h = 0x811c9dc5; 
@@ -103,11 +104,17 @@ struct map_hash {
 
 using C_map = std::unordered_map<node, node, map_hash, map_eq>;
 
+// called by garbage collector to free hahsmap
+void C_hashmap_finalize(SEXP map){
+    C_map *c_map = GET_MAP_PTR(map);
+    delete c_map;
+}
+
 // initialize empty hashmap
 SEXP C_hashmap_init() {
     C_map *c_map = new C_map;
     SEXP c_map_extptr = PROTECT(R_MakeExternalPtr(c_map, R_NilValue, R_NilValue));
-    R_RegisterCFinalizerEx(c_map_extptr, C_hashmap_finalize, TRUE)
+    R_RegisterCFinalizerEx(c_map_extptr, C_hashmap_finalize, TRUE);
     setAttrib(c_map_extptr, R_ClassSymbol, mkString("C_hashmap"));
     UNPROTECT(1);
     return c_map_extptr;
@@ -194,12 +201,6 @@ SEXP C_hashmap_getvals(SEXP map) {
     }
     UNPROTECT(1);
     return vals;
-}
-
-// called by garbage collector to free hahsmap
-void C_hashmap_finalize(SEXP extptr){
-    C_map *c_map = GET_MAP_PTR(map);
-    delete c_map;
 }
 
 // clears map
