@@ -82,3 +82,15 @@ size(map)
 clear(map)
 ```
 
+## Benchmarks 
+
+Comparison between this package and the package r2r, which is purely implemented in R and makes use 
+of R's environments which are implemented as hashmaps.
+
+The only other c / c++ implementation I have found seems to be 
+(https://github.com/nathan-russell/hashmap)[this one], which however 
+does not seem to compile for many and on my machine makes my R session crash. 
+
+### 1. Insertion of keys 
+
+!(utils/b1.png)
