@@ -2,7 +2,7 @@
 % Please edit documentation in R/Chashmap.R
 \name{keys}
 \alias{keys}
-\title{Retreive keys from the hashmap as a list}
+\title{retreive keys from hashmap}
 \usage{
 keys(map, simplify = FALSE)
 }

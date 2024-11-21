@@ -2,7 +2,7 @@
 % Please edit documentation in R/Chashmap.R
 \name{remove}
 \alias{remove}
-\title{Remove keys from the hashmap}
+\title{remove keys from hashmap}
 \usage{
 remove(map, keys)
 }

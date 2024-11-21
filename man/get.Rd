@@ -2,7 +2,7 @@
 % Please edit documentation in R/Chashmap.R
 \name{get}
 \alias{get}
-\title{retreive values for specific keys from a hashmap}
+\title{retreive values for keys}
 \usage{
 get(map, keys)
 }

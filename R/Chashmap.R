@@ -4,7 +4,8 @@
   map
 }
 
-#' insert elements into a hashmap 
+#' insert elements into hashmap
+#' @description insert elements into a hashmap 
 #' @usage insert(map, keys, values)
 #' @param map Hashmap object of class `C_hashmap`
 #' @param keys a scalar or vector of type numeric (int or real) or strings
@@ -24,7 +25,8 @@ insert <- function(map, keys, values) {
 }
 
 
-#' retreive values for specific keys from a hashmap
+#' retreive values for keys
+#' @description retreive values for specific keys from a hashmap
 #' @usage get(map, keys)
 #' @param map Hashmap object of class `C_hashmap`
 #' @param keys a scalar or vector of type numeric (int or real) or strings
@@ -45,8 +47,8 @@ get <- function(map, keys) {
   get(map, val)
 }
 
-
-#' Initialize an empty hashmap
+#' initialize hashmap
+#' @description Initialize an empty hashmap
 #' @export
 hashmap <- function() {
   .Call("C_hashmap_init")
@@ -59,7 +61,8 @@ print.C_hashmap <- function(map) {
   cat(crayon::silver("# size: ", size, "Elements"))
 }
 
-#' Retreive keys from the hashmap as a list 
+#' retreive keys from hashmap
+#' @description Retreive keys from the hashmap as a list 
 #' @usage keys(map, simplify = FALSE)
 #' @param simplify TRUE coerces the key list to a vector (default = FALSE)
 #' @param map Hashmap object of class `C_hashmap`
@@ -78,7 +81,8 @@ keys <- function(map, simplify = FALSE) {
     return(vals)
 }
 
-#' Retreive values from the hashmap as a list 
+#' Retreive values from hashmap
+#' @description Retreive values from the hashmap as a list 
 #' @usage values(map, simplify = FALSE)
 #' @param simplify TRUE coerces the key list to a vector (default = FALSE)
 #' @param map Hashmap object of class `C_hashmap`
@@ -98,6 +102,7 @@ values <- function(map, simplify = FALSE) {
 }
 
 #' Clear all entries from the hashmap
+#' @description Clear all entries from the hashmap
 #' @usage clear(map)
 #' @param map Hashmap object of class `C_hashmap`
 #' @export
@@ -107,7 +112,8 @@ clear <- function(map) {
   invisible()
 }
 
-#' Return the number of elements stored in the hashmap
+#' get size of hashmap
+#' @description Return the number of elements stored in the hashmap
 #' @usage size(map)
 #' @param map Hashmap object of class `C_hashmap`
 #' @export 
@@ -116,7 +122,8 @@ size <- function(map) {
   .Call("C_hashmap_size", map)
 }
 
-#' Remove keys from the hashmap
+#' remove keys from hashmap
+#' @description Remove keys from the hashmap
 #' @usage remove(map, keys)
 #' @param keys a scalar or vector of type numeric (int or real) or strings
 #' @export

@@ -2,7 +2,7 @@
 % Please edit documentation in R/Chashmap.R
 \name{size}
 \alias{size}
-\title{Return the number of elements stored in the hashmap}
+\title{get size of hashmap}
 \usage{
 size(map)
 }

@@ -2,7 +2,7 @@
 % Please edit documentation in R/Chashmap.R
 \name{insert}
 \alias{insert}
-\title{insert elements into a hashmap}
+\title{insert elements into hashmap}
 \usage{
 insert(map, keys, values)
 }

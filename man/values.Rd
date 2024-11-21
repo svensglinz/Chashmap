@@ -2,7 +2,7 @@
 % Please edit documentation in R/Chashmap.R
 \name{values}
 \alias{values}
-\title{Retreive values from the hashmap as a list}
+\title{Retreive values from hashmap}
 \usage{
 values(map, simplify = FALSE)
 }

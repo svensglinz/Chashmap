@@ -2,7 +2,7 @@
 % Please edit documentation in R/Chashmap.R
 \name{hashmap}
 \alias{hashmap}
-\title{Initialize an empty hashmap}
+\title{initialize hashmap}
 \usage{
 hashmap()
 }
