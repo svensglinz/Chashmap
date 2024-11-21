@@ -3,12 +3,12 @@ A fully vectorized hashmap implementation for R built as a simple wrapper around
 
 Chashmap alows for the insertion of integer, reals (SEXPINT, SEXPREAL) and strings (SEXPSTR). The insertion of any other type of data will throw an error.
 
-**!! Integers and Reals of the same value (eg 1, 1L) are treated as different values. !!**
-For example, `1:100` is a vector of Integers, but c(1, 2, ... 100) a vector of reals. 
-If you do not want to differentiate between the two, wrap all numeric values in as.numeric() to ensure that they are internally represented as a double and not as an int.
-
-
 Inserting and accessing elements is similar to how you would access and assign elements to a vector in R.
+```
+**Integers and Reals of the same value (eg 1, 1L) are treated as different values.**
+For example, `1:100` is a vector of integers, but c(1, 2, ... 100) a vector of reals. 
+```
+
 
 ## Installation 
 
@@ -88,9 +88,13 @@ Comparison between this package and the package r2r, which is purely implemented
 of R's environments which are implemented as hashmaps.
 
 The only other c / c++ implementation I have found seems to be 
-(https://github.com/nathan-russell/hashmap)[this one], which however 
-does not seem to compile for many and on my machine makes my R session crash. 
+[this one](https://github.com/nathan-russell/hashmap), which however 
+does not seem to compile anymore for many and on my machine makes my R session crash. 
 
 ### 1. Insertion of keys 
 
-!(utils/b1.png)
+![](utils/b1.png)
+
+### 2. Lookup of keys 
+![](utils/b2.png)
+
