@@ -2,12 +2,11 @@
 
 S3method("[",C_hashmap)
 S3method("[<-",C_hashmap)
+S3method(print,C_hashmap)
 export(clear)
 export(get)
 export(hashmap)
 export(insert)
 export(keys)
-export(remove)
 export(size)
 export(values)
-useDynLib(Chashmap, .registration = TRUE)

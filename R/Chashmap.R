@@ -53,6 +53,12 @@ hashmap <- function() {
   .Call("C_hashmap_init")
 }
 
+#' @export
+print.C_hashmap <- function(map) {
+  size <- .Call("C_hashmap_size", map)
+  cat(crayon::silver("# C Hashmap", format(map), "\n"))
+  cat(crayon::silver("# size: ", size, "Elements"))
+}
 
 #' Retreive keys from the hashmap as a list 
 #' @usage keys(map, simplify = FALSE)
