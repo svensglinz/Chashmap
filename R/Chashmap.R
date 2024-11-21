@@ -1,12 +1,6 @@
 #' @export
 `[<-.C_hashmap` <- function(map, key, value) {
-
-  # argument checking
-  stopifnot(is.character(key) || is.numeric(key))
-  stopifnot (is.character(value) || is.numeric(value))
-  stopifnot (length(key) == length(value))
-
-  .Call("C_hashmap_insert", map, key, value)
+  insert(map, key, value)
   map
 }
 
@@ -37,13 +31,17 @@ insert <- function(map, keys, values) {
 get <- function(map, keys) {
   stopifnot(inherits(map, "C_hashmap"))
   stopifnot(is.character(key) || is.numeric(key))
-  .Call("C_hashmap_get", map, keys)
+  vals <- .Call("C_hashmap_get", map, keys)
+
+  if (length(vals) <= 1) {
+    vals <- unlist(vals)
+  }
+  return(vals)
 }
 
 #' @export
 `[.C_hashmap` <- function(map, val) {
-  stopifnot (is.character(val) || is.numeric(val))
-  .Call("C_hashmap_get", map, val)
+  get(map, keys)
 }
 
 
@@ -68,6 +66,11 @@ print.C_hashmap <- function(map) {
 keys <- function(map, simplify = FALSE) {
   stopifnot(inherits(map, "C_hashmap"))
   vals <- .Call("C_hashmap_getkeys", map)
+
+  if (length(vals) <= 1) {
+    vals <- unlist(vals)
+  }
+
   if (simplify)
     return(unlist(vals))
   else 
@@ -83,6 +86,10 @@ values <- function(map, simplify = FALSE) {
   stopifnot(inherits(map, "C_hashmap"))
 
   vals <- .Call("C_hashmap_getvals", map)
+
+  if (length(vals) <= 1) {
+    vals <- unlist(vals)
+  }
   if (simplify)
     return(unlist(vals))
   else 
