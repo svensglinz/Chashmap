@@ -2,7 +2,6 @@
 #include <R.h>
 #include <Rinternals.h>
 #include <string.h>
-// #include <string>
 
 #ifndef R_NO_REMAP
 #define R_NO_REMAP
@@ -77,13 +76,26 @@ node* get_vals(SEXP vec) {
     return n;
 }
 
+// https://gist.github.com/sgsfak/9ba382a0049f6ee885f68621ae86079b
+std::size_t str_hash(const char* str) {
+    unsigned cur *s = (unsigned char*)str; 
+    const uint32_t FNV_32_PRIME = 0x01000193; 
+
+    uint32_t h = 0x811c9dc5; 
+    while (*cur) {
+        h^= *cur++;
+        h *= FNV_32_PRIME;
+    }
+    return h; 
+}
+
 // hash function
 struct map_hash {
     std::size_t operator()(const node &n) const {
         switch (n.type) {
             case REALSXP: return std::hash<long>()(static_cast<long>(n.val.doubleVal));
             case INTSXP: return std::hash<int>()(n.val.intVal);
-            //case STRSXP: return std::hash<std::string>()(std::string(n.val.charVal));
+            case STRSXP: str_hash(n.val.charVal);
             default: return 0;
         }
     }
@@ -95,6 +107,7 @@ using C_map = std::unordered_map<node, node, map_hash, map_eq>;
 SEXP C_hashmap_init() {
     C_map *c_map = new C_map;
     SEXP c_map_extptr = PROTECT(R_MakeExternalPtr(c_map, R_NilValue, R_NilValue));
+    R_RegisterCFinalizerEx(c_map_extptr, C_hashmap_finalize, TRUE)
     setAttrib(c_map_extptr, R_ClassSymbol, mkString("C_hashmap"));
     UNPROTECT(1);
     return c_map_extptr;
@@ -103,8 +116,6 @@ SEXP C_hashmap_init() {
 SEXP C_hashmap_insert(SEXP map, SEXP k, SEXP v) {
 
     C_map *c_map = GET_MAP_PTR(map);
-
-    // if vector as input, vectorize insert for each element in vector
 
     R_len_t len = LENGTH(k);
 
@@ -186,7 +197,7 @@ SEXP C_hashmap_getvals(SEXP map) {
 }
 
 // called by garbage collector to free hahsmap
-void C_hashmap_finalizer(SEXP map){
+void C_hashmap_finalize(SEXP extptr){
     C_map *c_map = GET_MAP_PTR(map);
     delete c_map;
 }
