@@ -5,6 +5,8 @@ Chashmap alows for the insertion of integer, reals (SEXPINT, SEXPREAL) and strin
 
 **!! Integers and Reals of the same value (eg 1, 1L) are treated as different values. !!**
 For example, `1:100` is a vector of Integers, but c(1, 2, ... 100) a vector of reals. 
+If you do not want to differentiate between the two, wrap all numeric values in as.numeric() to ensure that they are internally represented as a double and not as an int.
+
 
 Inserting and accessing elements is similar to how you would access and assign elements to a vector in R.
 
@@ -57,7 +59,7 @@ remove(map, KEYS)
 # return all keys in the map as a list
 #simplify = TRUE returns a vector (beware that this may lead to datatype coercion if not all keys are of the same type)
 
-getkeys(map, simplify = FALSE)
+keys(map, simplify = FALSE)
 ## [[1]]
 ## [1] 1
 ## [[2]]
@@ -68,13 +70,13 @@ getkeys(map, simplify = FALSE)
 # return all values in the map as a list
 #simplify = TRUE returns a vector (beware that this may lead to datatype coercion if not all values are of the same type)
 
-getvals(map, simplify = TRUE)
+values(map, simplify = TRUE)
 ## [1] "one" "two" "onehundred"
 
 # returns the size of the hashmap (# of unique entries)
 
 size(map)
-## 3
+## [1] 3
 
 # clear all entries in the map
 clear(map)
