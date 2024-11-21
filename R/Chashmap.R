@@ -58,7 +58,7 @@ hashmap <- function() {
 print.C_hashmap <- function(map) {
   size <- .Call("C_hashmap_size", map)
   cat(crayon::silver("# C Hashmap", format(map), "\n"))
-  cat(crayon::silver("# size: ", size, "Elements"))
+  cat(crayon::silver("# size: ", size, "Elements\n"))
 }
 
 #' retreive keys from hashmap
