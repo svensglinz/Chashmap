@@ -79,24 +79,25 @@ node* get_vals(SEXP vec) {
 
 // https://gist.github.com/sgsfak/9ba382a0049f6ee885f68621ae86079b
 std::size_t str_hash(const char* str) {
-    unsigned char *cur = (unsigned char*)str; 
-    const uint32_t FNV_32_PRIME = 0x01000193; 
+    const uint64_t FNV_32_PRIME = 0x01000193; 
 
-    uint32_t h = 0x811c9dc5; 
-    while (*cur) {
-        h^= *cur++;
-        h *= FNV_32_PRIME;
+    uint64_t h = 0x811c9dc5; 
+    char cur; 
+    while (cur = (unsigned char) *str++) {
+        h^= cur;
+        h = (h << 8) + (h >> 24) + cur;
     }
     return h; 
 }
 
 // hash function
 struct map_hash {
+
     std::size_t operator()(const node &n) const {
         switch (n.type) {
             case REALSXP: return std::hash<long>()(static_cast<long>(n.val.doubleVal));
             case INTSXP: return std::hash<int>()(n.val.intVal);
-            case STRSXP: str_hash(n.val.charVal);
+            case STRSXP: return str_hash(n.val.charVal);
             default: return 0;
         }
     }
