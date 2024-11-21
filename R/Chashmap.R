@@ -124,4 +124,5 @@ remove <- function(map, keys) {
   stopifnot(inherits(map, "C_hashmap"))
   stopifnot (is.character(keys) || is.numeric(keys))
   .Call("C_hashmap_remove", map, keys)
+  invisible()
 }
