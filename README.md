@@ -4,8 +4,15 @@ A fully vectorized hashmap implementation for R built as a simple wrapper around
 Chashmap alows for the insertion of integer, reals (SEXPINT, SEXPREAL) and strings (SEXPSTR). The insertion of any other type of data will throw an error.
 
 **!! Integers and Reals of the same value (eg 1, 1L) are treated as different values. !!**
+For example, `1:100` is a vector of Integers, but c(1, 2, ... 100) a vector of reals. 
 
 Inserting and accessing elements is similar to how you would access and assign elements to a vector in R.
+
+## Installation 
+
+```R
+devtools::install_github("svensglinz/Chashmap")
+```
 
 # Usage
 ```r
@@ -13,7 +20,7 @@ Inserting and accessing elements is similar to how you would access and assign e
 map <- Chashmap::hashmap()
 ```
 
-## Insertion and lookup 
+## Insertion, lookup and removal
 
 all operations are fully vectorized (ie. KEY and VALUE can be vectors of the types described above and the map will insert them as key value pairs of scalars) 
 ```r
@@ -23,12 +30,15 @@ insert(map, KEY, VALUE)
 
 # vectorized example
 map[c(1, 2, 100)] <- c("one", "two", "onehundred")
+insert(map, c(1, 2, 100), c("one", "two", "onehundred"))
+
 ```
 
 ```r
 # retrieve keys and returns them as a list
 # returns NULL if no element is found
 map[KEY]
+get(map, KEY)
 
 map[c(1, 10)]
 ## [[1]]
@@ -37,6 +47,11 @@ map[c(1, 10)]
 ## [2] NULL
 ```
 
+```r
+# remove keys from a map 
+remove(map, KEYS)
+
+```
 ## Utility Functions
 ```r
 # return all keys in the map as a list
