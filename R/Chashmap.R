@@ -119,6 +119,7 @@ size <- function(map) {
 #' Remove keys from the hashmap
 #' @usage remove(map, keys)
 #' @param keys a scalar or vector of type numeric (int or real) or strings
+#' @export
 remove <- function(map, keys) {
   stopifnot(inherits(map, "C_hashmap"))
   stopifnot (is.character(keys) || is.numeric(keys))
